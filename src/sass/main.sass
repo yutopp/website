@@ -1,0 +1,407 @@
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: arial, sans-serif;
+}
+
+$panel_height_unit: 72px;
+$panel_width_unit: 72px;
+$border: 2px;
+$panel_margin: 4px;
+$panel_padding: $border * 2;
+
+#navigation {
+    height: 46px;
+    margin: 0 0 10px 0;
+    padding: 6px;
+    background-color: #242424;
+    display: block;
+    filter: alpha(opacity=60);
+    -moz-opacity: 0.60;
+    -khtml-opacity: 0.60;
+    opacity: 0.60;
+
+    .inner {
+        position: relative;
+        width: (($panel_width_unit + $border * 2 + $panel_margin * 2) * 4) * 3;
+        margin: 0 auto;
+        height: 100%;
+        color: #fff;
+
+        p {
+            margin: -0.6em 0 0 0.4em;
+            position: absolute;
+            top: 50%;
+            font-size: 1.2em;
+            float: left;
+        }
+
+        ul {
+            margin-top: -0.6em;
+            position: absolute;
+            top: 50%;
+            right: 0;
+
+            float: left;
+            list-style-type: none;
+            padding: 0 0 0 16px;
+
+            li {
+                margin: 0 20px 0 0;
+                display: inline-block;
+
+                img {
+                    width: 2em;
+                    height: 2em;
+                    margin-top: -0.3em;
+                    border-radius: 50%;
+                    display: inline-block;
+                }
+            }
+        }
+    }
+
+    a {
+        color: #fff;
+        text-decoration: none;
+
+        &:hover {
+            color: #888888;
+        }
+    }
+}
+
+#outline {
+    max-width: (($panel_width_unit + $border * 2 + $panel_margin * 2) * 4) * 3;
+    margin: 0 auto 60px auto;
+    padding: 4px 10px;
+    text-decoration: none;
+
+    a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    article {
+        padding: 20px;
+
+        .inner {
+            width: 100%;
+
+            font-size: 1.2em;
+            display: inline-block;
+
+            header {
+                width: 100%;
+                text-align: right;
+
+                h1 {
+                    text-align: left;
+                }
+            }
+        }
+    }
+}
+
+.row {
+    float: left;
+    width: ($panel_width_unit + $border * 2 + $panel_margin * 2) * 4;
+    height: ($panel_height_unit + $border * 2 + $panel_margin * 2) * 4;
+    margin: 0;
+    padding: 0;
+}
+
+.column {
+    float: clear;
+    width: ($panel_width_unit + $border * 2 + $panel_margin * 2) * 4;
+    height: ($panel_height_unit + $border * 2 + $panel_margin * 2) * 2;
+    text-decoration: none;
+
+    a {
+        color: #fff;
+        text-decoration: none;
+
+        &:link {
+            color: #fff;
+            text-decoration: none;
+        }
+        &:visited {
+            color: #fff;
+            text-decoration: none;
+        }
+        &:hover {
+            color: #fff;
+            text-decoration: none;
+        }
+        &:active {
+            color: #fff;
+            text-decoration: none;
+        }
+    }
+}
+
+.column-x2 {
+    height: ($panel_height_unit + $border * 2 + $panel_margin * 2) * 4;
+}
+
+.panel-list {
+    $panel_width: ($panel_width_unit + $border * 2 + $panel_margin * 2) * 4 - ($panel_padding * 2 + $panel_margin * 2);
+    $panel_height: ($panel_height_unit + $border * 2 + $panel_margin * 2) - ($panel_padding * 2 + $panel_margin * 2);
+
+    ul {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    ul li {
+        display: inline-block;
+        width: $panel_width;
+        height: $panel_height;
+        margin: $panel_margin;
+        padding: $panel_padding;
+
+        &:hover {
+            margin: $panel_margin - $border;
+            border: #bbb $border solid;
+        }
+        &:active {
+            border: 0;
+            margin: $panel_margin + ($border / 2);
+            width: $panel_width - ($border / 2) * 2;
+            height: $panel_height - ($border / 2) * 2;
+        }
+
+        a {
+            display: inline-block;
+            width: $panel_width;
+            height: $panel_height;
+            font-size: 1.1em;
+
+            span.inner-left {
+                width: $panel_width;
+                height: $panel_height;
+                display: table-cell;
+                vertical-align: middle;
+
+                img {
+                    $icon_size: $panel_height * 0.6;
+                    width: $icon_size;
+                    height: $icon_size;
+                    vertical-align: middle;
+                    margin: 6px;
+                }
+
+                .name {
+                    display: inline-block;
+                }
+            }
+
+            span.inner-right {
+                display: table-cell;
+                vertical-align: middle;
+                padding-right: 6px;
+
+                .star {
+                    float: right;
+                    display: inline-block;
+                }
+            }
+        }
+    }
+}
+
+@mixin panel-tile-img($icon_size, $panel_width, $panel_height) {
+    width: $icon_size;
+    height: $icon_size;
+    position: absolute;
+    top: ($panel_height - $icon_size) / 2;
+    left: ($panel_width - $icon_size) / 2;
+}
+
+@mixin panel-tile($panel_width, $panel_height) {
+    ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul li {
+        display: inline-block;
+        width: $panel_width;
+        height: $panel_height;
+        margin: $panel_margin;
+        padding: $border * 2;
+        float: left;
+
+        &:hover {
+            margin: $panel_margin - $border;
+            border: #bbb $border solid;
+        }
+        &:active {
+            border: 0;
+            margin: $panel_margin + ($border / 2);
+            width: $panel_width - ($border / 2) * 2;
+            height: $panel_height - ($border / 2) * 2;
+        }
+
+        a {
+            display: inline-block;
+            width: $panel_width;
+            height: $panel_height;
+            font-size: 1.1em;
+
+            span.inner {
+                position: absolute;
+                width: $panel_width;
+                height: $panel_height;
+
+                img {
+                    $icon_size: $panel_height * 0.4;
+                    @include panel-tile-img($icon_size, $panel_width, $panel_height);
+                }
+                img.scale-high {
+                    $icon_size: $panel_height * 0.6;
+                    @include panel-tile-img($icon_size, $panel_width, $panel_height);
+                }
+                img.round {
+                    border-radius: 50%;
+                }
+
+                .name {
+                    position: absolute;
+                    bottom: 2px;
+                    left: 4px;
+                    color: #fff;
+
+                    &:first-letter {
+                        font-size: 1.2em;
+                    }
+                }
+            }
+        }
+    }
+
+    ul li.empty {
+        &:hover {
+            margin: $panel_margin;
+            border: #bbb 0 solid;
+        }
+    }
+}
+
+.panel-tile-small {
+    $panel_width: ($panel_width_unit + $border * 2 + $panel_margin * 2) * 2 - ($panel_padding * 2 + $panel_margin * 2);
+    $panel_height: ($panel_height_unit + $border * 2 + $panel_margin * 2) * 2 - ($panel_padding * 2 + $panel_margin * 2);
+
+    @include panel-tile($panel_width, $panel_height);
+}
+
+.panel-tile-half-large {
+    $panel_width: ($panel_width_unit + $border * 2 + $panel_margin * 2) * 4 - ($panel_padding * 2 + $panel_margin * 2);
+    $panel_height: ($panel_height_unit + $border * 2 + $panel_margin * 2) * 2 - ($panel_padding * 2 + $panel_margin * 2);
+
+    @include panel-tile($panel_width, $panel_height);
+}
+
+@mixin panel-color($base-color) {
+    background-color: $base-color;
+
+    &:hover {
+        background-color: lighten($base-color, 5%);
+    }
+    &:active {
+        background-color: darken($base-color, 5%);
+    }
+}
+
+.c-blue {
+    @include panel-color(#1976d2);
+}
+
+.c-github {
+    @include panel-color(#222222);
+}
+
+.c-hatena-b {
+    @include panel-color(#8899a6);
+}
+
+.c-green {
+    @include panel-color(#33aa00);
+}
+
+.c-twitter {
+    @include panel-color(#1DA1F2);
+}
+
+.c-tairiku {
+    @include panel-color(#1DA1F2);
+}
+
+@mixin page-front($base-color) {
+    background-color: lighten($base-color, 5%);
+    color: lighten($base-color, 60%);
+    text-decoration: none;
+
+    a {
+        color: #fff;
+        text-decoration: none;
+
+        &:link {
+            color: #fff;
+            text-decoration: none;
+        }
+        &:visited {
+            color: #fff;
+            text-decoration: none;
+        }
+        &:hover {
+            color: #fff;
+            text-decoration: none;
+        }
+        &:active {
+            color: #fff;
+            text-decoration: none;
+        }
+    }
+
+    .button {
+        width: auto;
+        border: 3px #ccc solid;
+        background-color: darken($base-color, 15%);
+        display: inline-block;
+        padding: 10px;
+
+        &:hover {
+            border: 3px #eee solid;
+            background-color: darken($base-color, 5%);;
+        }
+
+        &:active {
+            border: 3px #888 solid;
+            background-color: darken($base-color, 25%);;
+        }
+    }
+}
+
+.st_green {
+    @include page-front(#556b2f);
+}
+
+.bc_green {
+    background-color: #556b2f;
+    background-size: 100% auto;
+    background-attachment: fixed;
+}
+
+.st_blue {
+    @include page-front(#2858ff);
+}
+
+.bc_blue {
+    background-color: #223a70/*#1660aa*/;
+    background-size: 100% auto;
+    background-attachment: fixed;
+}

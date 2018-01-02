@@ -1,0 +1,16 @@
+{{ partial "header.html" . }}
+<div id="outline">
+  <article class="st_green">
+    <div class="inner">
+      <header>
+        <span class="date">{{ .Date }}</span>
+        <h1 class="title">{{ .Title }}</h1>
+      </header>
+
+      <div class="content">
+        <p>{{ .Content }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+{{ partial "footer.html" . }}

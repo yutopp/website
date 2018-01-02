@@ -1,0 +1,85 @@
+{{ partial "header.html" . }}
+<div id="outline">
+
+  <!-- row0 -->
+  <div class="row">
+    <div class="column column-x2 panel-list">
+      <ul>
+        {{ $repos := getJSON "https://api.github.com/search/repositories?q=user:yutopp&sort=stars&order=desc" }}
+        {{ range first 4 $repos.items }}
+        <li class="c-blue">
+          <a href="{{ .html_url }}" target="_blank">
+            <span class="inner-left">
+              <img src="image/github.png">
+              <span class="name">{{ .name }}</span>
+            </span>
+            <span class="inner-right">
+              <span class="star">★{{ .stargazers_count }}</span>
+            </span>
+          </a>
+        </li>
+        {{ end }}
+      </ul>
+    </div>
+  </div>
+
+  <!-- row1 -->
+  <div class="row">
+    <div class="column column-x2 panel-tile-small">
+      <ul>
+        <li class="c-github">
+		  <a href="https://github.com/yutopp" target="_blank">
+            <span class="inner">
+			  <img src="image/github.png">
+			  <span class="name">GitHub</span>
+		    </span>
+          </a>
+        </li>
+
+        <li class="c-twitter">
+		  <a href="https://twitter.com/yutopp" target="_blank">
+            <span class="inner">
+			  <img src="image/twitter.png" class="scale-high">
+			  <span class="name">Twitter</span>
+		    </span>
+          </a>
+        </li>
+
+        <li class="empty"></li>
+
+        <li class="c-hatena-b">
+		  <a href="http://yutopp.hateblo.jp/" target="_blank">
+            <span class="inner">
+			  <img src="image/hatena_b.svg" class="scale-high">
+			  <span class="name">Hatena Blog</span>
+		    </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- row2 -->
+  <div class="row">
+    <div class="column panel-tile-half-large">
+      <ul>
+        <li class="c-green">
+		  <a href="about">
+            <span class="inner">
+			  <img src="image/Y.png" class="round">
+			  <span class="name">About</span>
+		    </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="column panel-tile-small">
+      <ul>
+        <li class="empty"></li>
+        <li class="empty"></li>
+      </ul>
+    </div>
+  </div>
+</div>
+{{ partial "footer.html" . }}
