@@ -95,163 +95,104 @@ body {
     .column a:active {
       color: #fff;
       text-decoration: none; }
-
-.column-x2 {
-  height: 336px; }
-
-.panel-list ul {
-  margin: 0;
-  padding: 0;
-  width: 100%; }
-.panel-list ul li {
-  display: inline-block;
-  width: 320px;
-  height: 68px;
-  margin: 4px;
-  padding: 4px; }
-  .panel-list ul li:hover {
-    margin: 2px;
-    border: #bbb 2px solid; }
-  .panel-list ul li:active {
-    border: 0;
-    margin: 5px;
-    width: 318px;
-    height: 66px; }
-  .panel-list ul li a {
-    display: inline-block;
-    width: 320px;
-    height: 68px;
-    font-size: 1.1em; }
-    .panel-list ul li a span.inner-left {
-      width: 320px;
-      height: 68px;
-      display: table-cell;
-      vertical-align: middle; }
-    .panel-list ul li a span.inner {
-      display: table-cell;
-      vertical-align: middle;
-      height: 68px; }
-      .panel-list ul li a span.inner.left {
-        padding: 2px 6px; }
-        .panel-list ul li a span.inner.left img {
-          width: 40.8px;
-          height: 40.8px; }
-      .panel-list ul li a span.inner.middle {
-        width: 100%;
-        padding-top: 0.1em;
-        line-height: 68px; }
-        .panel-list ul li a span.inner.middle .name {
-          display: inline-block; }
-      .panel-list ul li a span.inner.right {
-        padding: 0.1em 0.5em 0 0;
-        line-height: 68px; }
-        .panel-list ul li a span.inner.right .star {
-          float: right;
-          display: inline-block; }
-
-.panel-tile-small ul {
-  margin: 0;
-  padding: 0; }
-.panel-tile-small ul li {
-  display: inline-block;
-  width: 152px;
-  height: 152px;
-  margin: 4px;
-  padding: 4px;
-  float: left; }
-  .panel-tile-small ul li:hover {
-    margin: 2px;
-    border: #bbb 2px solid; }
-  .panel-tile-small ul li:active {
-    border: 0;
-    margin: 5px;
-    width: 150px;
-    height: 150px; }
-  .panel-tile-small ul li a {
+  .column ul.panel-tile {
+    margin: 0;
+    padding: 0; }
+  .column ul.panel-tile li.s2x2 {
     display: inline-block;
     width: 152px;
     height: 152px;
-    font-size: 1.1em; }
-    .panel-tile-small ul li a span.inner {
-      position: absolute;
+    margin: 4px;
+    padding: 4px;
+    float: left; }
+    .column ul.panel-tile li.s2x2:hover {
+      margin: 2px;
+      border: #bbb 2px solid; }
+    .column ul.panel-tile li.s2x2:active {
+      border: 0;
+      margin: 5px;
+      width: 150px;
+      height: 150px; }
+    .column ul.panel-tile li.s2x2 a {
+      display: inline-block;
       width: 152px;
-      height: 152px; }
-      .panel-tile-small ul li a span.inner img {
-        width: 60.8px;
-        height: 60.8px;
+      height: 152px;
+      font-size: 1.1em; }
+      .column ul.panel-tile li.s2x2 a span.inner {
         position: absolute;
-        top: 45.6px;
-        left: 45.6px; }
-      .panel-tile-small ul li a span.inner img.scale-high {
-        width: 91.2px;
-        height: 91.2px;
-        position: absolute;
-        top: 30.4px;
-        left: 30.4px; }
-      .panel-tile-small ul li a span.inner img.round {
-        border-radius: 50%; }
-      .panel-tile-small ul li a span.inner .name {
-        position: absolute;
-        bottom: 2px;
-        left: 4px;
-        color: #fff; }
-        .panel-tile-small ul li a span.inner .name:first-letter {
-          font-size: 1.2em; }
-.panel-tile-small ul li.empty:hover {
-  margin: 4px;
-  border: #bbb 0 solid; }
-
-.panel-tile-half-large ul {
-  margin: 0;
-  padding: 0; }
-.panel-tile-half-large ul li {
-  display: inline-block;
-  width: 320px;
-  height: 152px;
-  margin: 4px;
-  padding: 4px;
-  float: left; }
-  .panel-tile-half-large ul li:hover {
-    margin: 2px;
-    border: #bbb 2px solid; }
-  .panel-tile-half-large ul li:active {
-    border: 0;
-    margin: 5px;
-    width: 318px;
-    height: 150px; }
-  .panel-tile-half-large ul li a {
+        width: 152px;
+        height: 152px; }
+        .column ul.panel-tile li.s2x2 a span.inner img {
+          width: 60.8px;
+          height: 60.8px;
+          position: absolute;
+          top: 45.6px;
+          left: 45.6px; }
+        .column ul.panel-tile li.s2x2 a span.inner img.scale-high {
+          width: 91.2px;
+          height: 91.2px;
+          position: absolute;
+          top: 30.4px;
+          left: 30.4px; }
+        .column ul.panel-tile li.s2x2 a span.inner img.round {
+          border-radius: 50%; }
+        .column ul.panel-tile li.s2x2 a span.inner .name {
+          position: absolute;
+          bottom: 2px;
+          left: 4px;
+          color: #fff; }
+          .column ul.panel-tile li.s2x2 a span.inner .name:first-letter {
+            font-size: 1.2em; }
+    .column ul.panel-tile li.s2x2.empty:hover {
+      margin: 4px;
+      border: #bbb 0 solid; }
+  .column ul.panel-list {
+    margin: 0;
+    padding: 0;
+    width: 100%; }
+  .column ul.panel-list li.s4x1 {
     display: inline-block;
     width: 320px;
-    height: 152px;
-    font-size: 1.1em; }
-    .panel-tile-half-large ul li a span.inner {
-      position: absolute;
+    height: 68px;
+    margin: 4px;
+    padding: 4px; }
+    .column ul.panel-list li.s4x1:hover {
+      margin: 2px;
+      border: #bbb 2px solid; }
+    .column ul.panel-list li.s4x1:active {
+      border: 0;
+      margin: 5px;
+      width: 318px;
+      height: 66px; }
+    .column ul.panel-list li.s4x1 a {
+      display: inline-block;
       width: 320px;
-      height: 152px; }
-      .panel-tile-half-large ul li a span.inner img {
-        width: 60.8px;
-        height: 60.8px;
-        position: absolute;
-        top: 45.6px;
-        left: 129.6px; }
-      .panel-tile-half-large ul li a span.inner img.scale-high {
-        width: 91.2px;
-        height: 91.2px;
-        position: absolute;
-        top: 30.4px;
-        left: 114.4px; }
-      .panel-tile-half-large ul li a span.inner img.round {
-        border-radius: 50%; }
-      .panel-tile-half-large ul li a span.inner .name {
-        position: absolute;
-        bottom: 2px;
-        left: 4px;
-        color: #fff; }
-        .panel-tile-half-large ul li a span.inner .name:first-letter {
-          font-size: 1.2em; }
-.panel-tile-half-large ul li.empty:hover {
-  margin: 4px;
-  border: #bbb 0 solid; }
+      height: 68px;
+      font-size: 1.1em; }
+      .column ul.panel-list li.s4x1 a span.inner {
+        display: table-cell;
+        vertical-align: middle;
+        height: 68px; }
+        .column ul.panel-list li.s4x1 a span.inner.left {
+          padding: 2px 6px; }
+          .column ul.panel-list li.s4x1 a span.inner.left img {
+            width: 40.8px;
+            height: 40.8px; }
+        .column ul.panel-list li.s4x1 a span.inner.middle {
+          width: 100%;
+          padding-top: 0.1em;
+          line-height: 68px; }
+          .column ul.panel-list li.s4x1 a span.inner.middle .name {
+            display: inline-block; }
+        .column ul.panel-list li.s4x1 a span.inner.right {
+          padding: 0.1em 0.5em 0 0;
+          line-height: 68px; }
+          .column ul.panel-list li.s4x1 a span.inner.right .star {
+            float: right;
+            display: inline-block; }
+
+.column-x2 {
+  height: 336px; }
 
 .c-blue {
   background-color: #1976d2; }

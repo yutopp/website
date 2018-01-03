@@ -12,6 +12,22 @@ $border: 2px;
 $panel_margin: 4px;
 $panel_padding: $border * 2;
 
+@function calc-column-width($num) {
+    @return ($panel_width_unit + $border * 2 + $panel_margin * 2) * $num;
+}
+
+@function calc-column-height($num) {
+    @return ($panel_height_unit + $border * 2 + $panel_margin * 2) * $num;
+}
+
+@function calc-panel-width($num) {
+    @return calc-column-width($num) - ($panel_padding * 2 + $panel_margin * 2);
+}
+
+@function calc-panel-height($num) {
+    @return calc-column-height($num) - ($panel_padding * 2 + $panel_margin * 2);
+}
+
 #navigation {
     height: 46px;
     margin: 0 0 10px 0;
@@ -103,127 +119,6 @@ $panel_padding: $border * 2;
     }
 }
 
-.row {
-    float: left;
-    width: ($panel_width_unit + $border * 2 + $panel_margin * 2) * 4;
-    height: ($panel_height_unit + $border * 2 + $panel_margin * 2) * 4;
-    margin: 0;
-    padding: 0;
-}
-
-.column {
-    float: clear;
-    width: ($panel_width_unit + $border * 2 + $panel_margin * 2) * 4;
-    height: ($panel_height_unit + $border * 2 + $panel_margin * 2) * 2;
-    text-decoration: none;
-
-    a {
-        color: #fff;
-        text-decoration: none;
-
-        &:link {
-            color: #fff;
-            text-decoration: none;
-        }
-        &:visited {
-            color: #fff;
-            text-decoration: none;
-        }
-        &:hover {
-            color: #fff;
-            text-decoration: none;
-        }
-        &:active {
-            color: #fff;
-            text-decoration: none;
-        }
-    }
-}
-
-.column-x2 {
-    height: ($panel_height_unit + $border * 2 + $panel_margin * 2) * 4;
-}
-
-.panel-list {
-    $panel_width: ($panel_width_unit + $border * 2 + $panel_margin * 2) * 4 - ($panel_padding * 2 + $panel_margin * 2);
-    $panel_height: ($panel_height_unit + $border * 2 + $panel_margin * 2) - ($panel_padding * 2 + $panel_margin * 2);
-
-    ul {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-    }
-
-    ul li {
-        display: inline-block;
-        width: $panel_width;
-        height: $panel_height;
-        margin: $panel_margin;
-        padding: $panel_padding;
-
-        &:hover {
-            margin: $panel_margin - $border;
-            border: #bbb $border solid;
-        }
-        &:active {
-            border: 0;
-            margin: $panel_margin + ($border / 2);
-            width: $panel_width - ($border / 2) * 2;
-            height: $panel_height - ($border / 2) * 2;
-        }
-
-        a {
-            display: inline-block;
-            width: $panel_width;
-            height: $panel_height;
-            font-size: 1.1em;
-
-            span.inner-left {
-                width: $panel_width;
-                height: $panel_height;
-                display: table-cell;
-                vertical-align: middle;
-
-
-            }
-            span.inner {
-                display: table-cell;
-                vertical-align: middle;
-                height: $panel_height;
-
-                &.left {
-                    padding: 2px 6px;
-                    img {
-                        $icon_size: $panel_height * 0.6;
-                        width: $icon_size;
-                        height: $icon_size;
-                    }
-                }
-
-                &.middle {
-                    width: 100%;
-                    padding-top: 0.1em;
-                    line-height: $panel_height;
-
-                    .name {
-                        display: inline-block;
-                    }
-                }
-
-                &.right {
-                    padding: 0.1em 0.5em 0 0;
-                    line-height: $panel_height;
-
-                    .star {
-                        float: right;
-                        display: inline-block;
-                    }
-                }
-            }
-        }
-    }
-}
-
 @mixin panel-tile-img($icon_size, $panel_width, $panel_height) {
     width: $icon_size;
     height: $icon_size;
@@ -232,13 +127,13 @@ $panel_padding: $border * 2;
     left: ($panel_width - $icon_size) / 2;
 }
 
-@mixin panel-tile($panel_width, $panel_height) {
-    ul {
+@mixin panel-tile($name, $panel_width, $panel_height) {
+    ul.panel-tile {
         margin: 0;
         padding: 0;
     }
 
-    ul li {
+    ul.panel-tile li.#{$name} {
         display: inline-block;
         width: $panel_width;
         height: $panel_height;
@@ -292,28 +187,134 @@ $panel_padding: $border * 2;
                 }
             }
         }
-    }
 
-    ul li.empty {
-        &:hover {
-            margin: $panel_margin;
-            border: #bbb 0 solid;
+        &.empty {
+            &:hover {
+                margin: $panel_margin;
+                border: #bbb 0 solid;
+            }
         }
     }
 }
 
-.panel-tile-small {
-    $panel_width: ($panel_width_unit + $border * 2 + $panel_margin * 2) * 2 - ($panel_padding * 2 + $panel_margin * 2);
-    $panel_height: ($panel_height_unit + $border * 2 + $panel_margin * 2) * 2 - ($panel_padding * 2 + $panel_margin * 2);
+@mixin panel-list($name, $panel_width, $panel_height) {
+    ul.panel-list {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
 
-    @include panel-tile($panel_width, $panel_height);
+    ul.panel-list li.#{$name} {
+        display: inline-block;
+        width: $panel_width;
+        height: $panel_height;
+        margin: $panel_margin;
+        padding: $panel_padding;
+
+        &:hover {
+            margin: $panel_margin - $border;
+            border: #bbb $border solid;
+        }
+        &:active {
+            border: 0;
+            margin: $panel_margin + ($border / 2);
+            width: $panel_width - ($border / 2) * 2;
+            height: $panel_height - ($border / 2) * 2;
+        }
+
+        a {
+            display: inline-block;
+            width: $panel_width;
+            height: $panel_height;
+            font-size: 1.1em;
+
+            span.inner {
+                display: table-cell;
+                vertical-align: middle;
+                height: $panel_height;
+
+                &.left {
+                    padding: 2px 6px;
+                    img {
+                        $icon_size: $panel_height * 0.6;
+                        width: $icon_size;
+                        height: $icon_size;
+                    }
+                }
+
+                &.middle {
+                    width: 100%;
+                    padding-top: 0.1em;
+                    line-height: $panel_height;
+
+                    .name {
+                        display: inline-block;
+                    }
+                }
+
+                &.right {
+                    padding: 0.1em 0.5em 0 0;
+                    line-height: $panel_height;
+
+                    .star {
+                        float: right;
+                        display: inline-block;
+                    }
+                }
+            }
+        }
+    }
 }
 
-.panel-tile-half-large {
-    $panel_width: ($panel_width_unit + $border * 2 + $panel_margin * 2) * 4 - ($panel_padding * 2 + $panel_margin * 2);
-    $panel_height: ($panel_height_unit + $border * 2 + $panel_margin * 2) * 2 - ($panel_padding * 2 + $panel_margin * 2);
+.row {
+    float: left;
+    width: ($panel_width_unit + $border * 2 + $panel_margin * 2) * 4;
+    height: ($panel_height_unit + $border * 2 + $panel_margin * 2) * 4;
+    margin: 0;
+    padding: 0;
+}
 
-    @include panel-tile($panel_width, $panel_height);
+.column {
+    float: clear;
+    width: ($panel_width_unit + $border * 2 + $panel_margin * 2) * 4;
+    height: ($panel_height_unit + $border * 2 + $panel_margin * 2) * 2;
+    text-decoration: none;
+
+    a {
+        color: #fff;
+        text-decoration: none;
+
+        &:link {
+            color: #fff;
+            text-decoration: none;
+        }
+        &:visited {
+            color: #fff;
+            text-decoration: none;
+        }
+        &:hover {
+            color: #fff;
+            text-decoration: none;
+        }
+        &:active {
+            color: #fff;
+            text-decoration: none;
+        }
+    }
+
+    //
+    $panel_tile_2x2_width: calc-panel-width(2);
+    $panel_tile_2x2_height: calc-panel-height(2);
+    @include panel-tile('s2x2', $panel_tile_2x2_width, $panel_tile_2x2_height);
+
+    //
+    $panel_list_4x1_width: calc-panel-width(4);
+    $panel_list_4x1_height: calc-panel-height(1);
+    @include panel-list('s4x1', $panel_list_4x1_width, $panel_list_4x1_height);
+}
+
+.column-x2 {
+    height: ($panel_height_unit + $border * 2 + $panel_margin * 2) * 4;
 }
 
 @mixin panel-color($base-color) {
