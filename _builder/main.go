@@ -17,6 +17,11 @@ import (
 
 const UpdaterPath = "hugo"
 
+type config struct {
+	baseDir string
+	key     string
+}
+
 func main() {
 	baseDir := flag.String("base-dir", "/workdir", "Base directory for git clone/pull")
 	key := flag.String("key", "", "Key for signature of github webhook")
@@ -25,20 +30,27 @@ func main() {
 
 	log.Printf("Started: %s", *bind)
 
-	http.HandleFunc("/", updateWebsite(*baseDir, *key))
+	http.HandleFunc("/", updateWebsite(&config{
+		baseDir: *baseDir,
+		key:     *key,
+	}))
 	if err := http.ListenAndServe(*bind, nil); err != nil {
 		log.Fatal(err)
 	}
 }
 
 type request struct {
+	Ref        string `json:"ref"`
+	HeadCommit struct {
+		Id string `json:"id"`
+	} `json:"head_commit"`
 	Repository struct {
 		Name     string `json:"name"`
 		CloneUrl string `json:"clone_url"`
 	} `json:"repository"`
 }
 
-func updateWebsite(baseDir, key string) func(http.ResponseWriter, *http.Request) {
+func updateWebsite(c *config) func(http.ResponseWriter, *http.Request) {
 	const SignatureLen = 45 // "sha1=" + hash
 
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -67,7 +79,7 @@ func updateWebsite(baseDir, key string) func(http.ResponseWriter, *http.Request)
 			return
 		}
 
-		mac := hmac.New(sha1.New, []byte(key))
+		mac := hmac.New(sha1.New, []byte(c.key))
 		mac.Write(body)
 		signatureActual := []byte(mac.Sum(nil))
 
@@ -86,30 +98,40 @@ func updateWebsite(baseDir, key string) func(http.ResponseWriter, *http.Request)
 			return
 		}
 
-		var hookRequest request
-		if err := json.Unmarshal(body, &hookRequest); err != nil {
-			http.Error(w, err.Error(), http.StatusBadRequest)
-			return
-		}
+		event := r.Header.Get("X-GitHub-Event")
+		switch event {
+		case "ping":
+			w.Write([]byte("OK PING"))
 
-		if err := prepareRepo(
-			baseDir,
-			hookRequest.Repository.Name,
-			hookRequest.Repository.CloneUrl,
-		); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
+		case "push":
+			var hookRequest request
+			if err := json.Unmarshal(body, &hookRequest); err != nil {
+				http.Error(w, err.Error(), http.StatusBadRequest)
+				return
+			}
 
-		if err := updateSite(
-			baseDir,
-			hookRequest.Repository.Name,
-		); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
+			if err := prepareRepo(
+				c.baseDir,
+				hookRequest.Repository.Name,
+				hookRequest.Repository.CloneUrl,
+			); err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
 
-		w.Write([]byte("OK"))
+			if err := updateSite(
+				c.baseDir,
+				hookRequest.Repository.Name,
+			); err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+
+			w.Write([]byte("OK PUSH"))
+
+		default:
+			http.Error(w, fmt.Sprintf("unsupported event: %s", event), http.StatusBadRequest)
+		}
 	}
 }
 
