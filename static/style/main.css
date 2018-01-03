@@ -71,15 +71,24 @@ body {
 .row {
   float: left;
   width: 336px;
-  height: 336px;
   margin: 0;
   padding: 0; }
+  .row.w-x2 {
+    width: 672px; }
 
 .column {
-  float: clear;
+  float: left;
   width: 336px;
   height: 168px;
   text-decoration: none; }
+  .column.with-caption {
+    height: 216px; }
+  .column.h-x2 {
+    height: 336px; }
+    .column.h-x2.with-caption {
+      height: 384px; }
+  .column.w-x2 {
+    width: 672px; }
   .column a {
     color: #fff;
     text-decoration: none; }
@@ -95,6 +104,14 @@ body {
     .column a:active {
       color: #fff;
       text-decoration: none; }
+  .column h1 {
+    height: 26px;
+    width: 100%;
+    margin: 10px 0 12px 4px;
+    color: #eeeeee;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: lighter;
+    font-size: 1.2em; }
   .column ul.panel-tile {
     margin: 0;
     padding: 0; }
@@ -142,7 +159,7 @@ body {
           left: 4px;
           color: #fff; }
           .column ul.panel-tile li.s2x2 a span.inner .name:first-letter {
-            font-size: 1.2em; }
+            font-size: 1.12em; }
     .column ul.panel-tile li.s2x2.empty:hover {
       margin: 4px;
       border: #bbb 0 solid; }
@@ -169,30 +186,49 @@ body {
       width: 320px;
       height: 68px;
       font-size: 1.1em; }
-      .column ul.panel-list li.s4x1 a span.inner {
+    .column ul.panel-list li.s4x1 a.github span.inner {
+      display: table-cell;
+      vertical-align: middle;
+      height: 68px; }
+      .column ul.panel-list li.s4x1 a.github span.inner.left {
+        padding: 2px 13.6px 2px 13.6px; }
+        .column ul.panel-list li.s4x1 a.github span.inner.left img {
+          width: 40.8px;
+          height: 40.8px; }
+      .column ul.panel-list li.s4x1 a.github span.inner.middle {
+        width: 100%;
+        padding-top: 0.1em;
+        line-height: 68px; }
+        .column ul.panel-list li.s4x1 a.github span.inner.middle .name {
+          display: inline-block; }
+      .column ul.panel-list li.s4x1 a.github span.inner.right {
+        padding: 0.1em 0.5em 0 0;
+        line-height: 68px; }
+        .column ul.panel-list li.s4x1 a.github span.inner.right .star {
+          float: right;
+          display: inline-block; }
+    .column ul.panel-list li.s4x1 a.memo {
+      position: relative; }
+      .column ul.panel-list li.s4x1 a.memo span.inner {
         display: table-cell;
         vertical-align: middle;
         height: 68px; }
-        .column ul.panel-list li.s4x1 a span.inner.left {
-          padding: 2px 6px; }
-          .column ul.panel-list li.s4x1 a span.inner.left img {
+        .column ul.panel-list li.s4x1 a.memo span.inner.left {
+          padding: 2px 13.6px 2px 13.6px; }
+          .column ul.panel-list li.s4x1 a.memo span.inner.left img {
             width: 40.8px;
             height: 40.8px; }
-        .column ul.panel-list li.s4x1 a span.inner.middle {
+        .column ul.panel-list li.s4x1 a.memo span.inner.middle {
           width: 100%;
           padding-top: 0.1em;
           line-height: 68px; }
-          .column ul.panel-list li.s4x1 a span.inner.middle .name {
+          .column ul.panel-list li.s4x1 a.memo span.inner.middle .name {
             display: inline-block; }
-        .column ul.panel-list li.s4x1 a span.inner.right {
-          padding: 0.1em 0.5em 0 0;
-          line-height: 68px; }
-          .column ul.panel-list li.s4x1 a span.inner.right .star {
-            float: right;
-            display: inline-block; }
-
-.column-x2 {
-  height: 336px; }
+        .column ul.panel-list li.s4x1 a.memo span.inner.right {
+          position: absolute;
+          top: 0;
+          left: 0;
+          font-size: 0.8em; }
 
 .c-blue {
   background-color: #1976d2; }

@@ -167,10 +167,12 @@ $panel_padding: $border * 2;
                     $icon_size: $panel_height * 0.4;
                     @include panel-tile-img($icon_size, $panel_width, $panel_height);
                 }
+
                 img.scale-high {
                     $icon_size: $panel_height * 0.6;
                     @include panel-tile-img($icon_size, $panel_width, $panel_height);
                 }
+
                 img.round {
                     border-radius: 50%;
                 }
@@ -182,7 +184,7 @@ $panel_padding: $border * 2;
                     color: #fff;
 
                     &:first-letter {
-                        font-size: 1.2em;
+                        font-size: 1.12em;
                     }
                 }
             }
@@ -227,16 +229,19 @@ $panel_padding: $border * 2;
             width: $panel_width;
             height: $panel_height;
             font-size: 1.1em;
+        }
 
+        a.github {
             span.inner {
                 display: table-cell;
                 vertical-align: middle;
                 height: $panel_height;
 
                 &.left {
-                    padding: 2px 6px;
+                    $icon_size: $panel_height * 0.6;
+                    padding: 2px ($icon_size / 3) 2px ($icon_size / 3);
+
                     img {
-                        $icon_size: $panel_height * 0.6;
                         width: $icon_size;
                         height: $icon_size;
                     }
@@ -263,22 +268,81 @@ $panel_padding: $border * 2;
                 }
             }
         }
+
+        a.memo {
+            position: relative;
+            span.inner {
+                display: table-cell;
+                vertical-align: middle;
+                height: $panel_height;
+
+                &.left {
+                    $icon_size: $panel_height * 0.6;
+                    padding: 2px ($icon_size / 3) 2px ($icon_size / 3);
+
+                    img {
+                        width: $icon_size;
+                        height: $icon_size;
+                    }
+                }
+
+                &.middle {
+                    width: 100%;
+                    padding-top: 0.1em;
+                    line-height: $panel_height;
+
+                    .name {
+                        display: inline-block;
+                    }
+                }
+
+                &.right {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    font-size: 0.8em;
+                }
+            }
+        }
     }
 }
 
 .row {
     float: left;
-    width: ($panel_width_unit + $border * 2 + $panel_margin * 2) * 4;
-    height: ($panel_height_unit + $border * 2 + $panel_margin * 2) * 4;
+    width: calc-column-width(4);
     margin: 0;
     padding: 0;
+
+    &.w-x2 {
+        width: calc-column-width(8);
+    }
 }
 
 .column {
-    float: clear;
-    width: ($panel_width_unit + $border * 2 + $panel_margin * 2) * 4;
-    height: ($panel_height_unit + $border * 2 + $panel_margin * 2) * 2;
+    $header_height: calc-panel-height(0.5);
+    $header_offset_top: 10px;
+    $header_offset_bottom: 12px;
+
+    float: left;
+    width: calc-column-width(4);
+    height: calc-column-height(2);
     text-decoration: none;
+
+    &.with-caption {
+        height: calc-column-height(2) + $header_height + $header_offset_top + $header_offset_bottom;
+    }
+
+    &.h-x2 {
+        height: calc-column-height(4);
+
+        &.with-caption {
+            height: calc-column-height(4) + $header_height + $header_offset_top + $header_offset_bottom;
+        }
+    }
+
+    &.w-x2 {
+        width: calc-column-width(8);
+    }
 
     a {
         color: #fff;
@@ -302,6 +366,16 @@ $panel_padding: $border * 2;
         }
     }
 
+    h1 {
+        height: $header_height;
+        width: 100%;
+        margin: $header_offset_top 0 $header_offset_bottom $panel_margin;
+        color: #eeeeee;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: lighter;
+        font-size: 1.2em;
+    }
+
     //
     $panel_tile_2x2_width: calc-panel-width(2);
     $panel_tile_2x2_height: calc-panel-height(2);
@@ -311,10 +385,6 @@ $panel_padding: $border * 2;
     $panel_list_4x1_width: calc-panel-width(4);
     $panel_list_4x1_height: calc-panel-height(1);
     @include panel-list('s4x1', $panel_list_4x1_width, $panel_list_4x1_height);
-}
-
-.column-x2 {
-    height: ($panel_height_unit + $border * 2 + $panel_margin * 2) * 4;
 }
 
 @mixin panel-color($base-color) {

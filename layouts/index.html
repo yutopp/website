@@ -3,25 +3,13 @@
 
   <!-- row0 -->
   <div class="row">
-    <div class="column">
-      <ul class="panel-tile">
-        <li class="s2x2 c-green">
-		  <a href="about">
-            <span class="inner">
-			  <img src="image/Y.png" class="round">
-			  <span class="name">About</span>
-		    </span>
-          </a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="column column-x2">
+    <div class="column with-caption h-x2">
+      <h1>Repositories</h1>
       <ul class="panel-list">
         {{ $repos := getJSON "https://api.github.com/search/repositories?q=user:yutopp&sort=stars&order=desc" }}
         {{ range first 4 $repos.items }}
         <li class="s4x1 c-blue">
-          <a href="{{ .html_url }}" target="_blank">
+          <a href="{{ .html_url }}" target="_blank" class="github">
             <span class="inner left">
               <img src="image/github.png">
             </span>
@@ -39,8 +27,9 @@
   </div>
 
   <!-- row1 -->
-  <div class="row">
-    <div class="column column-x2">
+  <div class="row w-x2">
+    <div class="column with-caption w-x2">
+      <h1>Social</h1>
       <ul class="panel-tile">
         <li class="s2x2 c-github">
 		  <a href="https://github.com/yutopp" target="_blank">
@@ -59,14 +48,7 @@
 		    </span>
           </a>
         </li>
-      </ul>
-    </div>
-  </div>
 
-  <!-- row2 -->
-  <div class="row">
-    <div class="column panel-tile-small">
-      <ul class="panel-tile">
         <li class="s2x2 c-hatena-b">
 	      <a href="http://yutopp.hateblo.jp/" target="_blank">
             <span class="inner">
@@ -80,10 +62,9 @@
       </ul>
     </div>
 
-    <div class="column">
+    <div class="column with-caption">
+      <h1>About</h1>
       <ul class="panel-tile">
-        <li class="s2x2 empty"></li>
-
         <li class="s2x2 c-green">
 		  <a href="about">
             <span class="inner">
@@ -92,6 +73,27 @@
 		    </span>
           </a>
         </li>
+      </ul>
+    </div>
+
+    <div class="column with-caption">
+      <h1>Memo</h1>
+      <ul class="panel-list">
+        {{ range first 4 (where .Data.Pages "Section" "posts") }}
+        <li class="s4x1 c-green">
+          <a href="{{ .Permalink }}" class="memo">
+            <span class="inner left">
+              <img src="image/blog.png">
+            </span>
+            <span class="inner middle">
+              <span class="name">{{ .Title }}</span>
+            </span>
+            <span class="inner right">
+              <span class="star">{{ .Date.Format "Mon, Jan 2, 2006" }}</span>
+            </span>
+          </a>
+        </li>
+        {{ end }}
       </ul>
     </div>
   </div>
