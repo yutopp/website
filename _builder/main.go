@@ -119,6 +119,13 @@ func updateWebsite(c *config) func(http.ResponseWriter, *http.Request) {
 				return
 			}
 
+			log.Printf("hash: %s", hookRequest.HeadCommit.Id)
+
+			if !c.refRegexp.MatchString(hookRequest.Ref) {
+				w.Write([]byte("OK PUSH (IGNORED: ref not matched)"))
+				return
+			}
+
 			if err := prepareRepo(
 				c.baseDir,
 				hookRequest.Repository.Name,
@@ -174,7 +181,6 @@ type command struct {
 }
 
 func prepareRepo(baseDir, name, repoUrl, commitHash string) error {
-	commitHash = "35294921cb4a5514093147326ff5bd5e8c34adcb"
 	var commands []*command
 
 	repoDir := filepath.Join(baseDir, name)
