@@ -13,26 +13,35 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"regexp"
 )
 
 const UpdaterPath = "hugo"
 
 type config struct {
-	baseDir string
-	key     string
+	baseDir   string
+	key       string
+	refRegexp *regexp.Regexp
 }
 
 func main() {
 	baseDir := flag.String("base-dir", "/workdir", "Base directory for git clone/pull")
 	key := flag.String("key", "", "Key for signature of github webhook")
 	bind := flag.String("bind", "0.0.0.0:8080", "Bind address")
+	ref := flag.String("ref", "refs/heads/master", "Regexp for branch filterling")
 	flag.Parse()
+
+	refRegexp, err := regexp.Compile(*ref)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	log.Printf("Started: %s", *bind)
 
 	http.HandleFunc("/", updateWebsite(&config{
-		baseDir: *baseDir,
-		key:     *key,
+		baseDir:   *baseDir,
+		key:       *key,
+		refRegexp: refRegexp,
 	}))
 	if err := http.ListenAndServe(*bind, nil); err != nil {
 		log.Fatal(err)
@@ -114,6 +123,7 @@ func updateWebsite(c *config) func(http.ResponseWriter, *http.Request) {
 				c.baseDir,
 				hookRequest.Repository.Name,
 				hookRequest.Repository.CloneUrl,
+				hookRequest.HeadCommit.Id,
 			); err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
@@ -158,8 +168,14 @@ func (c *chdir) reset() {
 	}
 }
 
-func prepareRepo(baseDir, name, repoUrl string) error {
-	var commands []string
+type command struct {
+	path string
+	args []string
+}
+
+func prepareRepo(baseDir, name, repoUrl, commitHash string) error {
+	commitHash = "35294921cb4a5514093147326ff5bd5e8c34adcb"
+	var commands []*command
 
 	repoDir := filepath.Join(baseDir, name)
 	if _, err := os.Stat(repoDir); err != nil {
@@ -170,7 +186,9 @@ func prepareRepo(baseDir, name, repoUrl string) error {
 		}
 		defer c.reset()
 
-		commands = []string{"git", "clone", repoUrl, "--depth", "1"}
+		commands = []*command{
+			&command{"git", []string{"clone", repoUrl, "--depth", "1"}},
+		}
 	} else {
 		// already exists, pull repository
 		c, err := Chdir(repoDir)
@@ -179,10 +197,13 @@ func prepareRepo(baseDir, name, repoUrl string) error {
 		}
 		defer c.reset()
 
-		commands = []string{"git", "reset", "--hard", "origin/master"}
+		commands = []*command{
+			&command{"git", []string{"fetch"}},
+			&command{"git", []string{"reset", "--hard", commitHash}},
+		}
 	}
 
-	return executeCommand(commands)
+	return executeCommands(commands)
 }
 
 func updateSite(baseDir, name string) error {
@@ -193,16 +214,22 @@ func updateSite(baseDir, name string) error {
 	}
 	defer c.reset()
 
-	return executeCommand([]string{UpdaterPath})
+	return executeCommand(&command{UpdaterPath, []string{}})
 }
 
-func executeCommand(commands []string) error {
-	if len(commands) < 1 {
-		return fmt.Errorf("number of commands is not enought")
+func executeCommands(commands []*command) error {
+	for _, command := range commands {
+		if err := executeCommand(command); err != nil {
+			return err
+		}
 	}
 
-	log.Printf("execute: %c", commands)
-	cmd := exec.Command(commands[0], commands[1:]...)
+	return nil
+}
+
+func executeCommand(command *command) error {
+	log.Printf("execute: %v", command)
+	cmd := exec.Command(command.path, command.args...)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	if err := cmd.Start(); err != nil {
