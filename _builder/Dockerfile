@@ -11,7 +11,7 @@ RUN apk --update --no-cache add git hugo
 
 COPY --from=builder /go/src/yutopp.net-builder/yutopp.net-builder /yutopp.net-builder
 
-RUN mkdir /workspace
+RUN mkdir /workdir
 
 EXPOSE 8080
 ENTRYPOINT ["/yutopp.net-builder"]
