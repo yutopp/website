@@ -25,7 +25,7 @@ $panel_padding: $border * 2;
 
     .inner {
         position: relative;
-        width: (($panel_width_unit + $border * 2 + $panel_margin * 2) * 4) * 3;
+        max-width: (($panel_width_unit + $border * 2 + $panel_margin * 2) * 4) * 3;
         margin: 0 auto;
         height: 100%;
         color: #fff;
@@ -46,10 +46,9 @@ $panel_padding: $border * 2;
 
             float: left;
             list-style-type: none;
-            padding: 0 0 0 16px;
+            padding: 0;
 
             li {
-                margin: 0 20px 0 0;
                 display: inline-block;
 
                 img {
@@ -76,7 +75,6 @@ $panel_padding: $border * 2;
 #outline {
     max-width: (($panel_width_unit + $border * 2 + $panel_margin * 2) * 4) * 3;
     margin: 0 auto 60px auto;
-    padding: 4px 10px;
     text-decoration: none;
 
     a {
@@ -186,27 +184,40 @@ $panel_padding: $border * 2;
                 display: table-cell;
                 vertical-align: middle;
 
-                img {
-                    $icon_size: $panel_height * 0.6;
-                    width: $icon_size;
-                    height: $icon_size;
-                    vertical-align: middle;
-                    margin: 6px;
-                }
 
-                .name {
-                    display: inline-block;
-                }
             }
-
-            span.inner-right {
+            span.inner {
                 display: table-cell;
                 vertical-align: middle;
-                padding-right: 6px;
+                height: $panel_height;
 
-                .star {
-                    float: right;
-                    display: inline-block;
+                &.left {
+                    padding: 2px 6px;
+                    img {
+                        $icon_size: $panel_height * 0.6;
+                        width: $icon_size;
+                        height: $icon_size;
+                    }
+                }
+
+                &.middle {
+                    width: 100%;
+                    padding-top: 0.1em;
+                    line-height: $panel_height;
+
+                    .name {
+                        display: inline-block;
+                    }
+                }
+
+                &.right {
+                    padding: 0.1em 0.5em 0 0;
+                    line-height: $panel_height;
+
+                    .star {
+                        float: right;
+                        display: inline-block;
+                    }
                 }
             }
         }
