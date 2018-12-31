@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>yutopp.net</title>
+    <link>https://yutopp.net/</link>
+    <description>Recent content on yutopp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Sun, 14 Jan 2018 15:31:52 +0900</lastBuildDate>
+    
+	<atom:link href="https://yutopp.net/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Zenbook3</title>
+      <link>https://yutopp.net/posts/zenbook3/</link>
+      <pubDate>Sun, 14 Jan 2018 15:31:52 +0900</pubDate>
+      
+      <guid>https://yutopp.net/posts/zenbook3/</guid>
+      <description>1/6日にzenbook3を買って．さっきようやく日本語が自由にEmacsで打てるマンになった．遅すぎる．
+fcitxを最初にインストールして便利に使っていたのだけれど，XのemacsでIMの直入力が出来ず，解決方法も探したもののパッと見つからなかったので，結局前のzenbookで使っていたuimに戻してしまった． mozc-modeを使えばfcitxでも入力できるといえばできるのだけれど，マイナーモードのキーマップがどうも合わないので直に入力出来たほうが嬉しい感じがあった．
+もし将来zenbook3が故障し，修理に出してクリーンインストールする場合は，最初からuimで入れておいてください(未来の自分に向けて)．</description>
+    </item>
+    
+    <item>
+      <title>2018年</title>
+      <link>https://yutopp.net/posts/2018-1-3-new-site/</link>
+      <pubDate>Wed, 03 Jan 2018 17:46:55 +0900</pubDate>
+      
+      <guid>https://yutopp.net/posts/2018-1-3-new-site/</guid>
+      <description>あけましておめでとうございました。2018年になった。
+このyutopp.netは2012年に借りたさくらVPSのCentOS6の上に乗っかっており、長年の色々で設定がグチャグチャになっていたため、年末の休みを利用してansibleで綺麗サッパリ再構築した。
+Ubuntu上にyutopp/websiteのwebhookを受け付けてhugoで静的にサイトを生成するコンテナをdocker stackで立てた。便利。まだテンプレートが雑っぽいがなんとかしていきたい。
+ついでにHTTP/2とipv6対応もした。これらに加えてユーザーの追加など色々自動化して、かなり楽になった。
+というわけで自動化でサーバーの準備が楽になったので、今年は鳥小屋再構築して遊びたい気持ちがある。</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>https://yutopp.net/about/</link>
+      <pubDate>Mon, 01 Jan 2018 05:33:32 +0900</pubDate>
+      
+      <guid>https://yutopp.net/about/</guid>
+      <description>🎍</description>
+    </item>
+    
+  </channel>
+</rss>
